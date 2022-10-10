@@ -766,21 +766,73 @@ sq -h
 To learn more, see our page on understanding [when your jobs will run](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/why-job-not-run/).
 
 
-# Example use of standard software: Jupyter Notebooks through Open OnDemand (OOD)
+# Another Way to Leverage Savio: Open OnDemand (OOD)
 
-Savio now has an Open OnDemand portal, allowing users to launch Jupyter notebooks and RStudio servers for interactive debugging and batch computing. (Note: this supersedes the JupyterHub instance on Savio, which is inactive).
+Savio now has an Open OnDemand portal, a web based way to access Savio using only your web browser.
 
-Let's see a brief demo of a Jupyter notebook:
+Using OOD you can:
 
- - Connect to [ood.brc.berkeley.edu](https://ood.brc.berkeley.edu)
- - Login as usual with a one-time password
- - Click on the "Interactive Apps" drop-down menu and select how to run your notebook (either "compute on shared Jupyter node" or "compute via Slurm using Slurm partitions")
+- View, download, and upload files on Savio
+- View the status of your current jobs
+- Start a shell session on Savio (i.e., terminal access)
+- Launch Jupyter, RStudio, and VS Code servers or Matlab GUI
+- Access a Linux desktop on Savio
+
+
+# Logging in to OOD
+
+Let's login to OOD:
+
+- Connect to [ood.brc.berkeley.edu](https://ood.brc.berkeley.edu)
+  - Login with your Savio username
+  - The password is as usual with a one-time password
+- You can then access the modules at the top of the page
+
+
+# File Browser in OOD
+
+To access the file browser in OOD click "Files" and then "Home Directory"
+
+- You start in your home directory
+- Note especially:
+  - Download
+  - Upload
+  - Delete
+  - Edit
+  - Show Dotfiles
+- We recommend using Globus for large file transfers
+
+# Other Features
+
+You can also view a job or get shell access:
+
+ - To view active jobs, click on "Jobs" and then "Active Jobs"
+ - To get shell access, click on "Clusters" and then "BRC Shell Access"
+
+# Submitting a job in OOD
+
+To submit a job using only OOD:
+
+1. Open the file browser
+2. Upload or create/edit a job submission script
+3. Open a shell session
+4. Submit the job using sbatch
+
+# Launching a Jupyter Session in OOD
+
+To launch a Jupyter session:
+
+ - Click on the "Interactive Apps" drop-down menu and select one of the Jupyter server options
+   - The "compute on shared Jupyter node" option is for testing and debugging jobs
+    - No service units charged, but minimal computing power
+   - The "compute via Slurm" should be used for all other use cases
+    - Service units are charged based on job run time (and resource(s) used)
  - Specify your Slurm options if relevant
- - Start up a notebook
+  - SLURM QoS Name: "savio_normal" is generally recommended
+ - Hit launch to start up a notebook
 
-You can also run [parallel computations via an IPython notebook](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/ood/jupyter-parallelization/).
 
-# Example use of standard software: Python in parallel
+# OOD Example: iPyParallel
 
 [TODO: We need to update the ipyparallel stuff to reflect that when using a single node, one can now start the workers from within the main python process.]
 
