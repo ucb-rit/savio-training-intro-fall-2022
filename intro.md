@@ -832,109 +832,114 @@ To launch a Jupyter session:
  - Hit launch to start up a notebook
 
 
-# OOD Example: iPyParallel
+# iPyParallel
 
-[TODO: We need to update the ipyparallel stuff to reflect that when using a single node, one can now start the workers from within the main python process.]
-
-Let's see a basic example of doing an analysis in Python across multiple cores on multiple nodes. We'll use the airline departure data in [bayArea.csv](https://www.stat.berkeley.edu/share/paciorek/bayArea.csv). Similar functionality is [available for R](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/software/using-software/using-r-savio/), for example using the `future` package,
-
-Here we'll use the *ipyparallel* package for parallel computing. The example is a bit contrived in that a lot of the time is spent moving data around rather than doing computation, but it should illustrate how to do a few things.
-
-First we'll user-install a Python package called `statsmodels` to get a more recent version:
+We need to import python and make sure iPyParallel is up to date.
 
 ```
-cp bayArea.csv /global/scratch/users/paciorek/.  # remember to do I/O off scratch
-# install Python package
-module unload python
-module load python/3.7
-# the system version of statsmodels isn't recent enough
-pip install --user statsmodels --upgrade
+module load python
+pip install --user ipyparallel --upgrade
 ```
 
-Now we'll start up an interactive session, though often this sort of thing would be done via a batch job.
+Next we can start iPython and set up a cluster
 
 ```
-srun -A fc_paciorek -p savio2 --nodes=2 --ntasks-per-node=24 -t 30:0 --pty bash
+import os
+
+# Import the package
+import ipyparallel as ipp
+
+# get number of cores (for one node)
+cpu_count = int(os.getenv('SLURM_CPUS_ON_NODE'))
+
+# create a remote cluster
+rc = ipp.Cluster(n=cpu_count).start_and_connect_sync()
+rc.wait_for_engines(n=cpu_count)
 ```
 
-Now we'll start up a cluster using *ipyparallel* tools. To do this across multiple nodes within a SLURM job, it goes like this:
+First create a direct view, which lets you run tasks symmetrically across engines
 
 ```
-module load python/3.7 gcc openmpi
-ipcontroller --ip='*' &
-sleep 30
-## The next line starts one worker per SLURM task (which should equal the number of cores)
-srun ipengine &
-sleep 45  # wait until all engines have successfully started
-cd /global/scratch/users/paciorek
-python
+dview = rc[:]
 ```
 
-If we were doing this on a single node, we could start everything up in a single call to *ipcluster*:
+There are two ways to import packages on the engines
+
 
 ```
-module load python/3.7
-ipcluster start -n $SLURM_CPUS_ON_NODE &
-python
+# Import via execute
+dview.execute('import numpy as np')
+
+# Import via sync_imports
+with dview.sync_imports():
+    import numpy as np
 ```
 
-Here's our Python code (also found in *parallel.py*) for doing an analysis across multiple strata/subsets of the dataset in parallel. Note that the 'load_balanced_view' business is so that the computations are done in a load-balanced fashion, which is important for tasks that take different amounts of time to complete.
+# IPP: Basic Operations
+
+The push command lets you send data to each engine
 
 ```
-from ipyparallel import Client
-c = Client()
-c.ids
+# send data to each engine
+dview.push(dict(a=1.03234, b=3453))
+for i in range(cpu_count):
+  rc[i].push({'id': rc.ids[i]})
+```
 
-dview = c[:] # use all engines
-dview.block = True # wait for the result before returning
-dview.apply(lambda : "Hello, World")
+Some commands will return an asynchronous object
 
-lview = c.load_balanced_view()
+```
+# apply and then get
+ar = dview.apply(lambda x: id+x, 27)
+print(ar)
+# Get the result
+ar.get()
+```
+
+There are other ways to make sure your code finishes running before moving on
+
+```
+# Can use apply sync
+dview.apply_sync(lambda x: id+x+np.random.rand(2), 27)
+
+# Or use blocking for all operations
+dview.block=True
+dview.apply(lambda x: id+x, 27)
+```
+
+
+# IPP: Load Balancing and Maps
+
+A load balance view assigns tasks to keep all of the processors busy
+
+```
+# Create a balanced load view
+lview = rc.load_balanced_view()
+
+# Cause execution on main process to wait while tasks sent to workers finish
 lview.block = True
-
-import pandas
-dat = pandas.read_csv('bayArea.csv', header = None, encoding = 'latin1')
-dat.columns = ('Year','Month','DayofMonth','DayOfWeek','DepTime',
-'CRSDepTime','ArrTime','CRSArrTime','UniqueCarrier','FlightNum',
-'TailNum','ActualElapsedTime','CRSElapsedTime','AirTime','ArrDelay',
-'DepDelay','Origin','Dest','Distance','TaxiIn','TaxiOut','Cancelled',
-'CancellationCode','Diverted','CarrierDelay','WeatherDelay',
-'NASDelay','SecurityDelay','LateAircraftDelay')
-
-dview.execute('import statsmodels.api as sm')
-
-dat2 = dat.reindex(columns = ['DepDelay','Year','Dest','Origin'])
-dests = dat2.Dest.unique()
-
-mydict = dict(dat2 = dat2, dests = dests)
-dview.push(mydict)
-
-def f(id):
-    sub = dat2.loc[dat2.Dest == dests[id],:]
-    sub = sm.add_constant(sub)
-    if not 'const' in sub.columns:
-        return None
-    model = sm.OLS(sub.DepDelay, sub.reindex(columns=['const','Year']))
-    results = model.fit()
-    return results.params
-
-import time
-time.time()
-parallel_result = lview.map(f, range(len(dests)))
-#result = map(f, range(len(dests)))
-time.time()
-
-# some NaN values because all 'Year' values are the same for some destinations
-
-parallel_result
 ```
 
-And we'll stop our cluster.
+We will calculate pi by monte carlo, et's define a function that checks if two points are in the unit circle
 
 ```
-ipcluster stop
+def uc_check(input):
+  if input[0] ** 2 + input[1] ** 2 < 1:
+    return 1
+  else:
+    return 0
 ```
 
+We now generate many random points in the unit square, we ask the load balanced view to split these random numbers across engines
+
+```
+# Generate randoms numbers
+rn = np.random.rand(int(1e5)).reshape(-1,2)
+# Execute map
+pi4 = lview.map(uc_check, rn)   # Run calculation in parallel
+# Estimate pi
+print(np.mean(pi4) * 4)
+```
 
 
 # Alternative Python Parallelization: Dask (optional)
