@@ -595,7 +595,7 @@ To end your interactive session (and prevent accrual of additional charges to yo
 
 NOTE: you are charged for the entire node when running interactive jobs (as with batch jobs) except in the HTC and GPU (*_htc and *_gpu) partitions.
 
-# Running graphical interfaces interactively 
+# Running graphical interfaces interactively
 
 If you are running a graphical interface, we recommend you use [Savio's Open OnDemand interface](https://ood.brc.berkeley.edu) (more in a later slide), e.g.,
 
@@ -946,6 +946,14 @@ pi4 = lview.map(uc_check, rn)   # Run calculation in parallel
 # Estimate pi
 print(np.mean(pi4) * 4)
 ```
+
+# IPP: Closing
+
+ - iPyParallel is one simple way to get going with easy to parallelize problems
+ - Blocking is important
+ - Using a load balanced view will make the most of your resources
+ - iPyParallel can be used with multiple nodes (with more complexity)
+
 
 
 # Alternative Python Parallelization: Dask (optional)
