@@ -8,9 +8,7 @@
 
  - [Cloud Computing Meetup](https://www.meetup.com/ucberkeley_cloudmeetup/) (monthly)
 
- - Looking for researchers working with sensitive data as we are building tools and services to support that work. Get in touch for more information.
-
- - [Securing Research Data Working Group](https://dlab.berkeley.edu/working-groups/securing-research-data-working-group) (monthly)
+ - We offer platforms and services for researchers working with [sensitive data](https://docs-research-it.berkeley.edu/services/srdc/)
 
  - Get paid to develop your skills in research data and computing! Berkeley Research Computing is hiring several graduate student Domain Consultants for flexible appointments, 10% to 25% effort (4-10 hours/week). Email your cover letter and CV to: research-it@berkeley.edu.
 
@@ -176,7 +174,6 @@ Savio is a Linux cluster - by cluster we mean a set of computers networked toget
 
 # Sensitive Data on Savio
 
-[TODO We are about to have new SRDC documentation, so best to point to that location in the docs site rather than the Dec 2019 workshop]
 
 - Savio (and AEoD) is [certified for moderately sensitive data](https://docs-research-it.berkeley.edu/services/high-performance-computing/getting-account/sensitive-accounts/)
   - P2, P3 (formerly PL1) and NIH dbGap (non-"notice-triggering" data).
@@ -184,7 +181,7 @@ Savio is a Linux cluster - by cluster we mean a set of computers networked toget
   - Existing projects can't be converted to P2/P3 projects.
 - BRC has a new platform for highly sensitive data (P4) called SRDC.
 
-More info is available in the slides from Dec. 2019 "Working with Sensitive + Protected Data" workshop: [https://tinyurl.com/srdc-dec2019](https://tinyurl.com/srdc-dec2019) or in [our documentation](https://docs-research-it.berkeley.edu/services/srdc/).
+More info is available in [our documentation](https://docs-research-it.berkeley.edu/services/srdc/) or on [our website](https://research-it.berkeley.edu/services-projects/secure-research-data-computing).
 
 # Logging in: Getting Set Up
 
@@ -286,7 +283,6 @@ tar -xvzf files.tgz
 
 # Data transfer for larger files: Globus, Intro
 
-[TODO:  I think we'll want to mention the possibility of sharing Savio-based data with outside folks via Globus (but probably without going into detail).]
 
 - You can use Globus Connect to transfer data data to/from Savio (and between other resources) quickly and unattended
   - This is a better choice for large transfers
@@ -298,6 +294,7 @@ tar -xvzf files.tgz
     - your laptop or desktop
     - Other clusters like NERSC and XSEDE
     - Box and bDrive (details coming soon)
+    - Collaborators & other researchers
 
 # Data transfer for larger files: Globus, requirements
 
