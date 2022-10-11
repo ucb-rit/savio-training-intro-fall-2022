@@ -4,8 +4,6 @@
 
 # Upcoming events and hiring
 
-[TODO: check with Amy about what to have here]
-
  - [Cloud Computing Meetup](https://www.meetup.com/ucberkeley_cloudmeetup/) (monthly)
 
  - We offer platforms and services for researchers working with [sensitive data](https://docs-research-it.berkeley.edu/services/srdc/)
