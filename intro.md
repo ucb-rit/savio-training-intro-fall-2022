@@ -176,6 +176,8 @@ Savio is a Linux cluster - by cluster we mean a set of computers networked toget
 
 # Sensitive Data on Savio
 
+[TODO We are about to have new SRDC documentation, so best to point to that location in the docs site rather than the Dec 2019 workshop]
+
 - Savio (and AEoD) is [certified for moderately sensitive data](https://docs-research-it.berkeley.edu/services/high-performance-computing/getting-account/sensitive-accounts/)
   - P2, P3 (formerly PL1) and NIH dbGap (non-"notice-triggering" data).
 - PIs/faculty must request a P2/P3 project alongside requests for a new FCA/condo allocation
@@ -302,7 +304,7 @@ tar -xvzf files.tgz
 - If you are transferring to/from your laptop, you'll need
   1. Globus Connect Personal set up,
   2. your machine established as an endpoint, and
-  3. Globus Connect Pesonal actively running on your machine. At that point you can proceed as below.
+  3. Globus Connect Personal actively running on your machine. At that point you can proceed as below.
 
 - Savio's endpoint is named `ucb#brc`.
 
@@ -396,7 +398,7 @@ module list  # what's loaded?
 module avail  # what's available
 ```
 
-One thing that tricks people is that the modules are arranged in a hierarchical (nested) fashion, so you only see some of the modules as being available *after* you load the parent module (e.g., MKL, FFT, and HDF5/NetCDF software is nested within the gcc module). Here's how we see and load MPI.
+One thing that tricks people is that some the modules are arranged in a hierarchical (nested) fashion, so you only see some of the modules as being available *after* you load the parent module (e.g., MKL, FFT, and HDF5/NetCDF software are nested within the gcc module). Here's how we see and load MPI.
 
 ```
 module load openmpi  # this fails if gcc not yet loaded
@@ -405,7 +407,7 @@ module avail
 module load openmpi
 ```
 
-Note that a variety of Python packages are available simply by loading the python module. For R this is not the case, but you can load the *r-packages* module.
+Note that a variety of Python packages are available simply by loading the python module. For R this is not the case, but you can load the *r-packages* module (as well as the *r-spatial* module for GIS/spatial-related packages).
 
 # Submitting jobs: overview
 
@@ -431,7 +433,7 @@ You can see what accounts you have access to and which partitions within those a
 sacctmgr -p show associations user=$USER
 ```
 
-Here's an example of the output for a user who has access to an FCA, a condo, and a special partner account:
+Here's an example of the output for a user who has access to an FCA and a condo:
 ```
 Cluster|Account|User|Partition|Share|GrpJobs|GrpTRES|GrpSubmit|GrpWall|GrpTRESMins|MaxJobs|MaxTRES|MaxTRESPerNode|MaxSubmit|MaxWall|MaxTRESMins|QOS|Def QOS|GrpTRESRunMins|
 brc|fc_paciorek|paciorek|savio3_gpu|1|||||||||||||gtx2080_gpu3_normal,savio_lowprio,v100_gpu3_normal|gtx2080_gpu3_normal||
@@ -459,14 +461,13 @@ brc|co_stat|paciorek|savio_bigmem|1|||||||||||||savio_lowprio|savio_lowprio||
 brc|co_stat|paciorek|savio2|1|||||||||||||savio_lowprio,stat_savio2_normal|stat_savio2_normal||
 ```
 
-If you are part of a condo, you'll notice that you have *low-priority* access to certain partitions. For example, Chris is part of the statistics condo *co_stat*, which owns some savio2 nodes and savio2_gpu nodes and therefore has normal access to those, but he can also burst beyond the condo and use other partitions at low-priority (see below).
+If you are part of a condo, you'll notice that you have *low-priority* access to certain partitions. For example, user 'paciorek' is part of the statistics condo *co_stat*, which purchased some savio2 nodes and savio2_gpu nodes and therefore has normal access to those, but he can also burst beyond the condo and use other partitions at low-priority (see below).
 
-In contrast, through his FCA, he has access to the savio, savio2, big memory, HTC, and GPU partitions all at normal priority.
+In contrast, through his FCA, 'paciorek' has access to the savio, savio2, and savio3 partitions as well as various big memory, HTC, and GPU partitions, all at normal priority.
 
 # Submitting a batch job
 
 Let's see how to submit a simple job. If your job will only use the resources on a single node, you can do the following.
-
 
 Here's an example job script that I'll run. You'll need to modify the --account value and possibly the --partition value.
 
@@ -485,7 +486,7 @@ Here's an example job script that I'll run. You'll need to modify the --account 
 #SBATCH --time=00:05:00
 #
 ## Command(s) to run:
-module load python/3.7
+module load python/3.9.12
 python calc.py >& calc.out
 ```
 
@@ -513,7 +514,7 @@ You can also login to the node where you are running and use commands like *top*
 srun --jobid=<JOB_ID> --pty /bin/bash
 ```
 
-Note that except for the *savio2_htc*  and *savio2_gpu* partitions, all jobs are given exclusive access to the entire node or nodes assigned to the job (and your account is charged for all of the cores on the node(s)).
+NOTE: except for the partitions named *_htc and *_gpu, all jobs are given exclusive access to the entire node or nodes assigned to the job (and your account is charged for all of the cores on the node(s)).
 
 
 # Parallel job submission
@@ -557,6 +558,8 @@ When you write your code, you may need to specify information about the number o
 
 Here are some of the variables that may be useful: SLURM_NTASKS, SLURM_CPUS_PER_TASK, SLURM_NODELIST, SLURM_NNODES.
 
+NOTE: when submitting GPU jobs [you need to request multiple CPUs per GPU](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/submitting-jobs/#gpu-jobs) (usually 2 GPUs, but for some of the GPU types in savio3_gpu, 4 or 8 GPUs).
+
 # Parallel job submission patterns
 
 Some common paradigms are:
@@ -570,7 +573,7 @@ Some common paradigms are:
  - hybrid jobs that use *c* CPUs for each of *n* tasks
      - e.g., MPI+threaded code
 
-There are lots more examples of job submission scripts for different kinds of parallelization (multi-node (MPI), multi-core (openMP), hybrid, etc.) [here](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/scheduler-examples/).
+We have lots more [examples of job submission scripts](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/scheduler-examples) for different kinds of parallelization (multi-node (MPI), multi-core (openMP), hybrid, etc.
 
 
 # Interactive jobs
@@ -590,14 +593,17 @@ matlab -nodesktop -nodisplay
 
 To end your interactive session (and prevent accrual of additional charges to your FCA), simply enter `exit` in the terminal session.
 
-NOTE: you are charged for the entire node when running interactive
-jobs (as with batch jobs) except in the *savio2_htc* and various GPU partitions.
+NOTE: you are charged for the entire node when running interactive jobs (as with batch jobs) except in the HTC and GPU (*_htc and *_gpu) partitions.
 
-# Running graphical interfaces interactively on the visualization node
+# Running graphical interfaces interactively 
 
-If you are running a graphical interface, we recommend you use Savio's remote desktop service on our visualization node, as described [here](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/using-brc-visualization-node-realvnc/).
+If you are running a graphical interface, we recommend you use [Savio's Open OnDemand interface](https://ood.brc.berkeley.edu) (more in a later slide), e.g.,
 
-Even better, for Jupyter Notebooks, RStudio, the MATLAB GUI, and VSCode, use Savio's [Open OnDemand interface](https://ood.brc.berkeley.edu) (more in a later slide).
+ - Jupyter Notebooks
+ - RStudio
+ - the MATLAB GUI
+ - VS Code
+ - remote desktop
 
 # Low-priority queue
 
@@ -621,7 +627,7 @@ The low-priority queue is also quite useful for accessing specific GPU types in 
 
 # HTC jobs (and long-running jobs)
 
-There is a partition called the HTC partition that allows you to request cores individually rather than an entire node at a time. The nodes in this partition are faster than the other nodes. Here is an example SLURM script:
+There are multiple "HTC" partitions (savio2_htc, savio3_htc, savio4_htc [coming soon]) that allow you to request cores individually rather than an entire node at a time. In some cases the nodes in these partition are faster than the other nodes. Here is an example SLURM script:
 
 ```
 #!/bin/bash
@@ -632,7 +638,7 @@ There is a partition called the HTC partition that allows you to request cores i
 #SBATCH --account=account_name
 #
 # Partition:
-#SBATCH --partition=savio2_htc
+#SBATCH --partition=savio3_htc
 #
 # Processors per task:
 #SBATCH --cpus-per-task=2
@@ -641,11 +647,11 @@ There is a partition called the HTC partition that allows you to request cores i
 #SBATCH --time=00:10:00
 #
 ## Command(s) to run (example):
-module load python
+module load python/3.9.12
 python calc.py >& calc.out
 ```
 
-One can run jobs up to 10 days (using four or fewer cores) in this partition if you include `--qos=savio_long`.
+One can run jobs up to 10 days (using four or fewer cores) in the *savio2_htc* partition if you include `--qos=savio_long`.
 
 # Alternatives to the HTC partition for collections of serial jobs
 
@@ -654,7 +660,7 @@ You may have many serial jobs to run. It may be more cost-effective to collect t
 Here are some options:
 
   - using [GNU parallel](https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/gnu-parallel/) to run many computational tasks (e.g., thousands of simulations, scanning tens of thousands of parameter values, etc.) as part of single Savio job submission
-  - using [single-node parallelism](https://github.com/berkeley-scf/tutorial-parallel-basics) and [multiple-node parallelism](https://github.com/berkeley-scf/tutorial-parallel-distributed) in Python, R, and MATLAB
+  - using [single-node or multi-node parallelism](https://berkeley-scf.github.io/tutorial-parallelization) in Python, R, and MATLAB
     - parallel R tools such as *future*, *foreach*, *parLapply*, and *mclapply*
     - parallel Python tools such as  *ipyparallel*, *Dask*, and *ray*
     - parallel functionality in MATLAB through *parfor*
@@ -670,7 +676,7 @@ squeue -A co_stat
 
 To see what nodes are available in a given partition:
 ```
-sinfo -p savio
+sinfo -p savio3
 sinfo -p savio2_gpu
 ```
 
@@ -689,7 +695,7 @@ We provide some [tips about monitoring your jobs](https://docs-research-it.berke
 If you'd like to see how much of an FCA has been used:
 
 ```
-check_usage.sh -a fc_cuore
+check_usage.sh -a fc_rail
 ```
 
 # When will my job start?
@@ -697,7 +703,7 @@ check_usage.sh -a fc_cuore
 The new `sq` tool on Savio provides a bit more user-friendly way to understand why your job isn't running yet. Here's the basic usage:
 ```
 # should be loaded by default, but if it isn't:
-module load sq
+# module load sq
 sq
 ```
 

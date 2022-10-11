@@ -12,5 +12,5 @@
 #SBATCH --time=00:05:00
 #
 ## Command(s) to run:
-module load python/3.7
+module load python/3.9.12
 python calc.py >& calc.out
