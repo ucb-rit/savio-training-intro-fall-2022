@@ -825,7 +825,7 @@ To launch a Jupyter session:
 We need to import python and make sure iPyParallel is up to date.
 
 ```
-module load python
+module load python/3.7
 pip install --user ipyparallel --upgrade
 ```
 
