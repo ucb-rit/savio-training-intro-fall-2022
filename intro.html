@@ -922,22 +922,19 @@ Recent jobs (most recent job first):
 </div>
 <div id="ipyparallel" class="slide section level1">
 <h1>iPyParallel</h1>
-<p>We need to import python and make sure iPyParallel is up to date.</p>
-<pre><code>module load python/3.7
-pip install --user ipyparallel --upgrade</code></pre>
-<p>Next we can start iPython and set up a cluster</p>
+<p>You Canollow along in the Jupyter N</p>
+<p>First, we import iPyParallel and set up a cluster</p>
 <pre><code>import os
 
 # Import the package
 import ipyparallel as ipp
 
-# get number of cores (for one node)
+# Get number of cores (for one node)
 cpu_count = int(os.getenv(&#39;SLURM_CPUS_ON_NODE&#39;))
 
-# create a remote cluster
-rc = ipp.Cluster(n=cpu_count).start_and_connect_sync()
-rc.wait_for_engines(n=cpu_count)</code></pre>
-<p>First create a direct view, which lets you run tasks symmetrically across engines</p>
+# Create a remote cluster (It only takes one line!)
+rc = ipp.Cluster(n=cpu_count).start_and_connect_sync()</code></pre>
+<p>Then create a direct view, which lets you run tasks symmetrically across engines</p>
 <pre><code>dview = rc[:]</code></pre>
 <p>There are two ways to import packages on the engines</p>
 <pre><code># Import via execute
@@ -950,12 +947,12 @@ with dview.sync_imports():
 <div id="ipp-basic-operations" class="slide section level1">
 <h1>IPP: Basic Operations</h1>
 <p>The push command lets you send data to each engine</p>
-<pre><code># send data to each engine
+<pre><code># Send data to each engine
 dview.push(dict(a=1.03234, b=3453))
 for i in range(cpu_count):
   rc[i].push({&#39;id&#39;: rc.ids[i]})</code></pre>
 <p>Some commands will return an asynchronous object</p>
-<pre><code># apply and then get
+<pre><code># Apply and then get
 ar = dview.apply(lambda x: id+x, 27)
 print(ar)
 # Get the result
@@ -976,7 +973,7 @@ lview = rc.load_balanced_view()
 
 # Cause execution on main process to wait while tasks sent to workers finish
 lview.block = True</code></pre>
-<p>We will calculate pi by monte carlo, et’s define a function that checks if two points are in the unit circle</p>
+<p>We will calculate pi by monte carlo, let’s define a function that checks if two points are in the unit circle</p>
 <pre><code>def uc_check(input):
   if input[0] ** 2 + input[1] ** 2 &lt; 1:
     return 1
