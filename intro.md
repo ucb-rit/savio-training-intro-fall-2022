@@ -191,7 +191,7 @@ ssh SAVIO_USERNAME@hpc.brc.berkeley.edu
 - One can then navigate around and get information using standard UNIX commands such as `ls`, `cd`, `du`, `df`, etc.
   - There is a lot of material online about using the UNIX command line
     - Also called the shell; 'bash' is one common variation
-  - Here is a [basic tutorial](https://github.com/berkeley-scf/tutorial-unix-basics).
+  - Here is one [basic tutorial from Software Carpentry](https://swcarpentry.github.io/shell-novice) and [another one from the Berkeley Statistical Computing Facility](https://berkeley-scf.github.io/tutorial-unix-basics).
 
 # Graphical Interface
 
