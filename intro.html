@@ -154,23 +154,8 @@ October 14, 2022
 </ul></li>
 </ul>
 </div>
-<div id="basic-parallel-computing-concepts-pt.-1" class="slide section level1">
-<h1>Basic Parallel Computing Concepts Pt. 1</h1>
-<p>[TODO: update in light of question of whether participants are familiar with this terminology, particularly given savio4 will be shared nodes bydefault and that we now have OOD for which users are ofen doing serial work.]</p>
-<ul>
-<li>Who is Savio for?</li>
-<li>Types of computation (Flynn’s taxonomy)
-<ol style="list-style-type: decimal">
-<li>Single command, Single Data</li>
-<li>Single command, Multiple data</li>
-<li>Multiple command, Multiple data</li>
-<li>(Multiple Instruction, Single data)</li>
-</ol></li>
-<li>Savio is (generally) best for cases 2 &amp; 3</li>
-</ul>
-</div>
 <div id="basic-parallel-computing-concepts-pt.-2" class="slide section level1">
-<h1>Basic Parallel Computing Concepts Pt. 2</h1>
+<h1>Basic Parallel Computing Concepts</h1>
 <ul>
 <li>What is Savio?
 <ul>
@@ -185,7 +170,7 @@ October 14, 2022
 <li>Shared memory (e.g., OpenMP)
 <ul>
 <li>All computation on the same node</li>
-<li>Can have shared objects in ram</li>
+<li>Can have shared objects in RAM in some cases</li>
 </ul></li>
 <li>Distributed memory (e.g., MPI)
 <ul>
@@ -408,12 +393,12 @@ nano myfile.txt</code></pre>
 <li><p>SCP is supported in terminal for Mac/Linux and in Powershell/Command Prompt in Windows</p></li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># to Savio, while on your local machine</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="fu">scp</span> bayArea.csv hannsode@dtn.brc.berkeley.edu:~/.</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="fu">scp</span> bayArea.csv hannsode@dtn.brc.berkeley.edu:~/data/newName.csv</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="fu">scp</span> bayArea.csv hannsode@dtn.brc.berkeley.edu:/global/scratch/users/paciorek/.</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="fu">scp</span> bayArea.csv caw87@dtn.brc.berkeley.edu:~/.</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="fu">scp</span> bayArea.csv caw87@dtn.brc.berkeley.edu:~/data/newName.csv</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="fu">scp</span> bayArea.csv caw87@dtn.brc.berkeley.edu:/global/scratch/users/paciorek/.</a>
 <a class="sourceLine" id="cb4-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co"># from Savio, while on your local machine</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="fu">scp</span> hannsode@dtn.brc.berkeley.edu:~/data/newName.csv ~/Documents/.</a></code></pre></div>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="fu">scp</span> caw87@dtn.brc.berkeley.edu:~/data/newName.csv ~/Documents/.</a></code></pre></div>
 <p>If you can ssh to your local machine or want to transfer files to other systems on to which you can ssh, you can login to the dtn node to execute the scp commands:</p>
 <pre><code>ssh SAVIO_USERNAME@dtn.brc.berkeley.edu
 [SAVIO_USERNAME@dtn ~]$ scp ~/file.csv OTHER_USERNAME@other.domain.edu:~/data/.</code></pre>
@@ -446,8 +431,8 @@ tar -xvzf files.tgz</code></pre>
 <li>Savio</li>
 <li>your laptop or desktop</li>
 <li>Other clusters like NERSC and XSEDE</li>
-<li>Box and bDrive (details coming soon)</li>
-<li>Collaborators & other researchers</li>
+<li>bDrive </li>
+<li>Collaborators & other researchers not on savio</li>
 </ul></li>
 </ul></li>
 </ul>
@@ -508,7 +493,7 @@ tar -xvzf files.tgz</code></pre>
 </ul>
 </div>
 <div id="data-transfer-box-bdrive-access" class="slide section level1">
-<h1>Data transfer: Box &amp; bDrive Access</h1>
+<h1>Data transfer: bDrive Access</h1>
 <ul>
 <li>You can interact with both services via web browser, and both services provide a desktop app you can use to move and sync files between your computer and the cloud.
 <ul>
@@ -517,11 +502,6 @@ tar -xvzf files.tgz</code></pre>
 <li><a href="http://box.berkeley.edu">Box web app</a></li>
 <li><a href="https://www.box.com/resources/downloads">Box desktop app</a></li>
 </ul></li>
-<li>BRC is working on making Globus available for transfer to/from Box and bDrive
-<ul>
-<li>We hope this will be available in the near future</li>
-</ul></li>
-</ul>
 <p>For more ambitious users, Box has a Python-based SDK that can be used to write scripts for file transfers. For more information on how to do this, check out the <code>BoxAuthenticationBootstrap.ipynb</code> and <code>TransferFilesFromBoxToSavioScratch.ipynb</code> from BRC’s cyberinfrastructure engineer on <a href="https://github.com/ucberkeley/brc-cyberinfrastructure/tree/dev/analysis-workflows/notebooks">GitHub</a></p>
 </div>
 <div id="data-transfer-box-bdrive-with-rclone-setup" class="slide section level1">
