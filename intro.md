@@ -823,8 +823,7 @@ To launch a Jupyter session:
 # iPyParallel
 
 
-
-You Canollow along in the Jupyter N
+You can follow along with the Jupyter notebook [here](https://github.com/ucb-rit/savio-training-intro-fall-2022/blob/main/Intro_to_Savio_iPP.ipynb)
 
 First, we import iPyParallel and set up a cluster
 
