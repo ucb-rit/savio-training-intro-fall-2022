@@ -53,19 +53,8 @@ This training session will cover the following topics:
      - How to get additional help
      - Upcoming events
 
-# Basic Parallel Computing Concepts Pt. 1
 
-[TODO: update in light of question of whether participants are familiar with this terminology, particularly given savio4 will be shared nodes bydefault and that we now have OOD for which users are ofen doing serial work.]
-
-- Who is Savio for?
-- Types of computation (Flynn's taxonomy)
-   1. Single command, Single Data
-   2. Single command, Multiple data
-   3. Multiple command, Multiple data
-   4. (Multiple Instruction, Single data)
-- Savio is (generally) best for cases 2 & 3
-
-# Basic Parallel Computing Concepts Pt. 2
+# Basic Parallel Computing Concepts
 
 - What is Savio?
   - In layman's terms:
@@ -74,7 +63,7 @@ This training session will cover the following topics:
 - Two types of parallel Computing
   - Shared memory (e.g., OpenMP)
     - All computation on the same node
-    - Can have shared objects in ram
+    - Can have shared objects in RAM in some cases
   - Distributed memory (e.g., MPI)
     - Computation on multiple nodes
     - Special attention to passing information between nodes
@@ -249,12 +238,12 @@ Let's see how we would transfer files/data to/from Savio using a few different a
 
 ```bash
 # to Savio, while on your local machine
-scp bayArea.csv hannsode@dtn.brc.berkeley.edu:~/.
-scp bayArea.csv hannsode@dtn.brc.berkeley.edu:~/data/newName.csv
-scp bayArea.csv hannsode@dtn.brc.berkeley.edu:/global/scratch/users/paciorek/.
+scp bayArea.csv caw87@dtn.brc.berkeley.edu:~/.
+scp bayArea.csv caw87@dtn.brc.berkeley.edu:~/data/newName.csv
+scp bayArea.csv caw87@dtn.brc.berkeley.edu:/global/scratch/users/caw87/.
 
 # from Savio, while on your local machine
-scp hannsode@dtn.brc.berkeley.edu:~/data/newName.csv ~/Documents/.
+scp caw87@dtn.brc.berkeley.edu:~/data/newName.csv ~/Documents/.
 ```
 
 If you can ssh to your local machine or want to transfer files to other systems on to which you can ssh, you can login to the dtn node to execute the scp commands:
@@ -291,8 +280,8 @@ tar -xvzf files.tgz
     - Savio
     - your laptop or desktop
     - Other clusters like NERSC and XSEDE
-    - Box and bDrive (details coming soon)
-    - Collaborators & other researchers
+    - bDrive
+    - Collaborators & other researchers not on savio
 
 # Data transfer for larger files: Globus, requirements
 
@@ -317,7 +306,7 @@ tar -xvzf files.tgz
 
 - Box and bDrive (the Cal branded Google Drive) both provide free, secured, and encrypted content storage of files to Berkeley affiliates
   - They are both good options for backup and long-term storage of data that you plan to shuttle in and out of Savio
-  - Box quotas coming into effect October 27th, 2021
+  - Box quotas
     - 50GB for new individual accounts
     - 500GB for new Special Purpose Accounts ("SPAs")
     - Existing accounts will be allowed up to 10% above current storage amount
@@ -330,7 +319,7 @@ tar -xvzf files.tgz
     - See the [bCloud web page](https://technology.berkeley.edu/services/cloud) for more information
   - As mentioned earlier, Condo computing contributors can also buy into the condo storage program
 
-# Data transfer: Box & bDrive Access
+# Data transfer: bDrive Access
 
 - You can interact with both services via web browser, and both services provide a desktop app you can use to move and sync files between your computer and the cloud.
   - [bDrive web app](http://bdrive.berkeley.edu/)
@@ -338,8 +327,6 @@ tar -xvzf files.tgz
   - [Box web app](http://box.berkeley.edu)
   - [Box desktop app](https://www.box.com/resources/downloads)
 
-- BRC is working  on making Globus available for transfer to/from Box and bDrive
-  - We hope this will be available in the near future
 
 For more ambitious users, Box has a Python-based SDK that can be used to write scripts for file transfers. For more information on how to do this, check out the `BoxAuthenticationBootstrap.ipynb` and `TransferFilesFromBoxToSavioScratch.ipynb` from BRC's cyberinfrastructure engineer on [GitHub](https://github.com/ucberkeley/brc-cyberinfrastructure/tree/dev/analysis-workflows/notebooks)
 
