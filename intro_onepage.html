@@ -6,81 +6,83 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="October 14, 2022" />
   <title>Savio introductory training: Basic usage of the Berkeley Savio high-performance computing cluster</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
-  </style>
-  <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
 </head>
 <body>
-<header>
+<header id="title-block-header">
 <h1 class="title">Savio introductory training: Basic usage of the Berkeley Savio high-performance computing cluster</h1>
 <p class="author">October 14, 2022</p>
 <p class="date">Christian White, Chris Paciorek, and Clint Hamilton</p>
@@ -88,13 +90,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1 id="upcoming-events-and-hiring">Upcoming events and hiring</h1>
 <ul>
 <li><p><a href="https://www.meetup.com/ucberkeley_cloudmeetup/">Cloud Computing Meetup</a> (monthly)</p></li>
-<li><p>We offer platforms and services for researchers working with <a href="https://docs-research-it.berkeley.edu/services/srdc/">sensitive data</a>.</p></li>
+<li><p>We offer platforms and services for researchers working with <a href="https://docs-research-it.berkeley.edu/services/srdc/">sensitive data</a></p></li>
 <li><p>Get paid to develop your skills in research data and computing! Berkeley Research Computing is hiring several graduate student Domain Consultants for flexible appointments, 10% to 25% effort (4-10 hours/week). Email your cover letter and CV to: research-it@berkeley.edu.</p></li>
 </ul>
 <h1 id="introduction">Introduction</h1>
 <p>We’ll do this mostly as a demonstration. We encourage you to login to your account and try out the various examples yourself as we go through them.</p>
-<p>Much of this material is based on the extensive Savio documention we have prepared and continue to prepare, available at <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/" class="uri">https://docs-research-it.berkeley.edu/services/high-performance-computing/</a>.</p>
-<p>The materials for this tutorial are available using git at the short URL (<a href="https://tinyurl.com/brc-oct22">tinyurl.com/brc-oct22</a>), the GitHub URL (<a href="https://github.com/ucb-rit/savio-training-intro-fall-2022" class="uri">https://github.com/ucb-rit/savio-training-intro-fall-2022</a>), or simply as a <a href="https://github.com/ucb-rit/savio-training-intro-fall-2022/archive/main.zip">zip file</a>.</p>
+<p>Much of this material is based on the extensive Savio documention we have prepared and continue to prepare, available at <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/">https://docs-research-it.berkeley.edu/services/high-performance-computing/</a>.</p>
+<p>The materials for this tutorial are available using git at the short URL (<a href="https://tinyurl.com/brc-oct22">tinyurl.com/brc-oct22</a>), the GitHub URL (<a href="https://github.com/ucb-rit/savio-training-intro-fall-2022">https://github.com/ucb-rit/savio-training-intro-fall-2022</a>), or simply as a <a href="https://github.com/ucb-rit/savio-training-intro-fall-2022/archive/main.zip">zip file</a>.</p>
 <h1 id="outline">Outline</h1>
 <p>This training session will cover the following topics:</p>
 <ul>
@@ -143,7 +145,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Upcoming events</li>
 </ul></li>
 </ul>
-<h1 id="basic-parallel-computing-concepts-pt.-2">Basic Parallel Computing Concepts</h1>
+<h1 id="basic-parallel-computing-concepts">Basic Parallel Computing Concepts</h1>
 <ul>
 <li>What is Savio?
 <ul>
@@ -233,8 +235,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1 id="savio-computing-node-types">Savio computing node types</h1>
 <ul>
 <li><p>There are multiple types of computation nodes with different hardware specifications <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/hardware-config/">(see the <em>Hardware Configuration</em> page)</a>.</p></li>
-<li>The nodes are divided into several pools, called <em>partitions</em></li>
-<li>These partitions have different restrictions and costs associated with them
+<li><p>The nodes are divided into several pools, called <em>partitions</em></p></li>
+<li><p>These partitions have different restrictions and costs associated with them</p>
 <ul>
 <li><a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/scheduler-config/">see the <em>Scheduler Configuration</em> page</a></li>
 <li>and <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/service-units-savio/">the associated costs in Service Units</a></li>
@@ -307,7 +309,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>ssh SAVIO_USERNAME@hpc.brc.berkeley.edu</code></pre>
 <ul>
 <li><p>Then enter XXXXXYYYYYY where XXXXXX is your PIN and YYYYYY is the one-time password. YYYYYY will be shown when you open your <em>Google authenticator</em> app on your phone/tablet.</p></li>
-<li>One can then navigate around and get information using standard UNIX commands such as <code>ls</code>, <code>cd</code>, <code>du</code>, <code>df</code>, etc.
+<li><p>One can then navigate around and get information using standard UNIX commands such as <code>ls</code>, <code>cd</code>, <code>du</code>, <code>df</code>, etc.</p>
 <ul>
 <li>There is a lot of material online about using the UNIX command line
 <ul>
@@ -346,13 +348,13 @@ nano myfile.txt</code></pre>
 <li><p>The example file <code>bayArea.csv</code> is too large to store on Github; you can obtain it <a href="https://www.stat.berkeley.edu/share/paciorek/bayArea.csv">here</a>.</p></li>
 <li><p>SCP is supported in terminal for Mac/Linux and in Powershell/Command Prompt in Windows</p></li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># to Savio, while on your local machine</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="fu">scp</span> bayArea.csv caw87@dtn.brc.berkeley.edu:~/.</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="fu">scp</span> bayArea.csv caw87@dtn.brc.berkeley.edu:~/data/newName.csv</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="fu">scp</span> bayArea.csv caw87@dtn.brc.berkeley.edu:/global/scratch/users/paciorek/.</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co"># from Savio, while on your local machine</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="fu">scp</span> caw87@dtn.brc.berkeley.edu:~/data/newName.csv ~/Documents/.</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="co"># to Savio, while on your local machine</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="fu">scp</span> bayArea.csv caw87@dtn.brc.berkeley.edu:~/.</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a><span class="fu">scp</span> bayArea.csv caw87@dtn.brc.berkeley.edu:~/data/newName.csv</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a><span class="fu">scp</span> bayArea.csv caw87@dtn.brc.berkeley.edu:/global/scratch/users/caw87/.</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a><span class="co"># from Savio, while on your local machine</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a><span class="fu">scp</span> caw87@dtn.brc.berkeley.edu:~/data/newName.csv ~/Documents/.</span></code></pre></div>
 <p>If you can ssh to your local machine or want to transfer files to other systems on to which you can ssh, you can login to the dtn node to execute the scp commands:</p>
 <pre><code>ssh SAVIO_USERNAME@dtn.brc.berkeley.edu
 [SAVIO_USERNAME@dtn ~]$ scp ~/file.csv OTHER_USERNAME@other.domain.edu:~/data/.</code></pre>
@@ -382,7 +384,7 @@ tar -xvzf files.tgz</code></pre>
 <li>your laptop or desktop</li>
 <li>Other clusters like NERSC and XSEDE</li>
 <li>bDrive</li>
-<li>Collaborators and other researchers not on savio</li>
+<li>Collaborators &amp; other researchers not on savio</li>
 </ul></li>
 </ul></li>
 </ul>
@@ -435,7 +437,7 @@ tar -xvzf files.tgz</code></pre>
 <li>As mentioned earlier, Condo computing contributors can also buy into the condo storage program</li>
 </ul></li>
 </ul>
-<h1 id="data-transfer-box-bdrive-access">Data transfer: bDrive Access</h1>
+<h1 id="data-transfer-bdrive-access">Data transfer: bDrive Access</h1>
 <ul>
 <li>You can interact with both services via web browser, and both services provide a desktop app you can use to move and sync files between your computer and the cloud.
 <ul>
@@ -443,7 +445,6 @@ tar -xvzf files.tgz</code></pre>
 <li><a href="https://www.google.com/drive/download/">Drive desktop app</a></li>
 <li><a href="http://box.berkeley.edu">Box web app</a></li>
 <li><a href="https://www.box.com/resources/downloads">Box desktop app</a></li>
-</ul></li>
 </ul></li>
 </ul>
 <p>For more ambitious users, Box has a Python-based SDK that can be used to write scripts for file transfers. For more information on how to do this, check out the <code>BoxAuthenticationBootstrap.ipynb</code> and <code>TransferFilesFromBoxToSavioScratch.ipynb</code> from BRC’s cyberinfrastructure engineer on <a href="https://github.com/ucberkeley/brc-cyberinfrastructure/tree/dev/analysis-workflows/notebooks">GitHub</a></p>
@@ -453,7 +454,7 @@ tar -xvzf files.tgz</code></pre>
 <ul>
 <li>Configuration (on dtn): <code>rclone config</code></li>
 <li>Use auto config? -&gt; n</li>
-<li>For Box: install rclone on your PC, then run <code>rclone authorize &quot;box&quot;</code></li>
+<li>For Box: install rclone on your PC, then run <code>rclone authorize "box"</code></li>
 <li>Paste the link into your browser and log in to your CalNet account</li>
 <li>Copy the authentication token and paste into the <code>rclone config</code> prompt on Savio</li>
 </ul>
@@ -471,7 +472,7 @@ tar -xvzf files.tgz</code></pre>
 </ul></li>
 <li>All <em>rclone</em> commands begin with <code>rclone</code> and are then followed by a commands
 <ul>
-<li>The commands are different from bash (i.e., <code>cp</code> in <em>bash</em> vs. <code>copy</code> in rclone)</li>
+<li>The commands are different from bash (i.e., <code>cp</code> in <em>bash</em> vs. <code>copy</code> in rclone)</li>
 </ul></li>
 <li>To reference a file on the remote you add configured remote name followed by a colon followed by the file path
 <ul>
@@ -544,22 +545,22 @@ brc|co_stat|paciorek|savio2|1|||||||||||||savio_lowprio,stat_savio2_normal|stat_
 <h1 id="submitting-a-batch-job">Submitting a batch job</h1>
 <p>Let’s see how to submit a simple job. If your job will only use the resources on a single node, you can do the following.</p>
 <p>Here’s an example job script that I’ll run. You’ll need to modify the –account value and possibly the –partition value.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="co">#!/bin/bash</span></a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co"># Job name:</span></a>
-<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#SBATCH --job-name=test</span></a>
-<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#</span></a>
-<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co"># Account:</span></a>
-<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co">#SBATCH --account=fc_paciorek</span></a>
-<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="co">#</span></a>
-<a class="sourceLine" id="cb12-8" data-line-number="8"><span class="co"># Partition:</span></a>
-<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="co">#SBATCH --partition=savio2</span></a>
-<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="co">#</span></a>
-<a class="sourceLine" id="cb12-11" data-line-number="11"><span class="co"># Wall clock limit (5 minutes here):</span></a>
-<a class="sourceLine" id="cb12-12" data-line-number="12"><span class="co">#SBATCH --time=00:05:00</span></a>
-<a class="sourceLine" id="cb12-13" data-line-number="13"><span class="co">#</span></a>
-<a class="sourceLine" id="cb12-14" data-line-number="14"><span class="co">## Command(s) to run:</span></a>
-<a class="sourceLine" id="cb12-15" data-line-number="15"><span class="ex">module</span> load python/3.9.12</a>
-<a class="sourceLine" id="cb12-16" data-line-number="16"><span class="ex">python</span> calc.py <span class="op">&gt;</span><span class="kw">&amp;</span> <span class="ex">calc.out</span></a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a><span class="co"># Job name:</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a><span class="co">#SBATCH --job-name=test</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a><span class="co">#</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a><span class="co"># Account:</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true"></a><span class="co">#SBATCH --account=fc_paciorek</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true"></a><span class="co">#</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true"></a><span class="co"># Partition:</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true"></a><span class="co">#SBATCH --partition=savio2</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true"></a><span class="co">#</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true"></a><span class="co"># Wall clock limit (5 minutes here):</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true"></a><span class="co">#SBATCH --time=00:05:00</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true"></a><span class="co">#</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true"></a><span class="co">## Command(s) to run:</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true"></a><span class="ex">module</span> load python/3.9.12</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true"></a><span class="ex">python</span> calc.py <span class="op">&gt;</span><span class="kw">&amp;</span> <span class="ex">calc.out</span></span></code></pre></div>
 <p>Now let’s submit and monitor the job:</p>
 <pre><code>sbatch job.sh
 
@@ -581,28 +582,28 @@ wwall -j &lt;JOB_ID&gt;</code></pre>
 </ul>
 <p>In addition, in some cases it can make sense to use the <code>--ntasks</code> (or <code>-n</code>) option to indicate the total number of tasks and let the scheduler determine how many nodes and tasks per node are needed. In general <code>--cpus-per-task</code> will be one except when running threaded code.</p>
 <p>Here’s an example job script for a job that uses MPI for parallelizing over multiple nodes:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co">#!/bin/bash</span></a>
-<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="co"># Job name:</span></a>
-<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="co">#SBATCH --job-name=test</span></a>
-<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="co">#</span></a>
-<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="co"># Account:</span></a>
-<a class="sourceLine" id="cb16-6" data-line-number="6"><span class="co">#SBATCH --account=account_name</span></a>
-<a class="sourceLine" id="cb16-7" data-line-number="7"><span class="co">#</span></a>
-<a class="sourceLine" id="cb16-8" data-line-number="8"><span class="co"># Partition:</span></a>
-<a class="sourceLine" id="cb16-9" data-line-number="9"><span class="co">#SBATCH --partition=partition_name</span></a>
-<a class="sourceLine" id="cb16-10" data-line-number="10"><span class="co">#</span></a>
-<a class="sourceLine" id="cb16-11" data-line-number="11"><span class="co"># Number of MPI tasks needed for use case (example):</span></a>
-<a class="sourceLine" id="cb16-12" data-line-number="12"><span class="co">#SBATCH --ntasks=40</span></a>
-<a class="sourceLine" id="cb16-13" data-line-number="13"><span class="co">#</span></a>
-<a class="sourceLine" id="cb16-14" data-line-number="14"><span class="co"># Processors per task:</span></a>
-<a class="sourceLine" id="cb16-15" data-line-number="15"><span class="co">#SBATCH --cpus-per-task=1</span></a>
-<a class="sourceLine" id="cb16-16" data-line-number="16"><span class="co">#</span></a>
-<a class="sourceLine" id="cb16-17" data-line-number="17"><span class="co"># Wall clock limit:</span></a>
-<a class="sourceLine" id="cb16-18" data-line-number="18"><span class="co">#SBATCH --time=00:00:30</span></a>
-<a class="sourceLine" id="cb16-19" data-line-number="19"><span class="co">#</span></a>
-<a class="sourceLine" id="cb16-20" data-line-number="20"><span class="co">## Command(s) to run (example):</span></a>
-<a class="sourceLine" id="cb16-21" data-line-number="21"><span class="ex">module</span> load intel openmpi</a>
-<a class="sourceLine" id="cb16-22" data-line-number="22"><span class="ex">mpirun</span> ./a.out</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a><span class="co"># Job name:</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a><span class="co">#SBATCH --job-name=test</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a><span class="co">#</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a><span class="co"># Account:</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true"></a><span class="co">#SBATCH --account=account_name</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true"></a><span class="co">#</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true"></a><span class="co"># Partition:</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true"></a><span class="co">#SBATCH --partition=partition_name</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true"></a><span class="co">#</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true"></a><span class="co"># Number of MPI tasks needed for use case (example):</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true"></a><span class="co">#SBATCH --ntasks=40</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true"></a><span class="co">#</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true"></a><span class="co"># Processors per task:</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true"></a><span class="co">#SBATCH --cpus-per-task=1</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true"></a><span class="co">#</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true"></a><span class="co"># Wall clock limit:</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true"></a><span class="co">#SBATCH --time=00:00:30</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true"></a><span class="co">#</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true"></a><span class="co">## Command(s) to run (example):</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true"></a><span class="ex">module</span> load intel openmpi</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true"></a><span class="ex">mpirun</span> ./a.out</span></code></pre></div>
 <p>When you write your code, you may need to specify information about the number of cores to use. SLURM will provide a variety of variables that you can use in your code so that it adapts to the resources you have requested rather than being hard-coded.</p>
 <p>Here are some of the variables that may be useful: SLURM_NTASKS, SLURM_CPUS_PER_TASK, SLURM_NODELIST, SLURM_NNODES.</p>
 <p>NOTE: when submitting GPU jobs <a href="https://docs-research-it.berkeley.edu/services/high-performance-computing/user-guide/running-your-jobs/submitting-jobs/#gpu-jobs">you need to request multiple CPUs per GPU</a> (usually 2 GPUs, but for some of the GPU types in savio3_gpu, 4 or 8 GPUs).</p>
@@ -882,6 +883,13 @@ rn = np.random.rand(int(1e5)).reshape(-1,2)
 pi4 = lview.map(uc_check, rn)   # Run calculation in parallel
 # Estimate pi
 print(np.mean(pi4) * 4)</code></pre>
+<h1 id="ipp-closing">IPP: Closing</h1>
+<ul>
+<li>iPyParallel is one simple way to get going with easy to parallelize problems</li>
+<li>Blocking is important</li>
+<li>Using a load balanced view will make the most of your resources</li>
+<li>iPyParallel can be used with multiple nodes (with more complexity)</li>
+</ul>
 <h1 id="alternative-python-parallelization-dask-optional">Alternative Python Parallelization: Dask (optional)</h1>
 <p>In addition to iPyParallel, a widely-used tool in the Python space is <a href="http://dask.pydata.org/en/latest/">Dask</a>, which provides out-of-the-box parallelization more easily without much setup or too much additional work. Dask, as a Python package, extends Numpy/Pandas syntax for arrays and dataframes that already exists and introduces native parallelization to these data structures, which speeds up analyses. Since Dask dataframes/arrays are descendants of the Pandas dataframe and Numpy array, they are compatible with any existing code and can serve as a plug-in replacement, with performance enhancements for multiple cores/nodes. It’s also worth noting that Dask is useful for scaling up to large clusters like Savio but can also be useful for speeding up analyses on your local computer.</p>
 <p>We have materials available from <a href="https://github.com/ucb-rit/savio-training-dask-2019">our spring 2019 training on using Dask on Savio</a> and from a <a href="https://github.com/berkeley-scf/tutorial-dask-future">tutorial on using Dask</a>.</p>
@@ -897,7 +905,7 @@ print(np.mean(pi4) * 4)</code></pre>
 <ul>
 <li>Check the Status and Announcements page:
 <ul>
-<li><a href="https://research-it.berkeley.edu/services/high-performance-computing/status-and-announcements" class="uri">https://research-it.berkeley.edu/services/high-performance-computing/status-and-announcements</a></li>
+<li><a href="https://research-it.berkeley.edu/services/high-performance-computing/status-and-announcements">https://research-it.berkeley.edu/services/high-performance-computing/status-and-announcements</a></li>
 </ul></li>
 <li>For technical issues and questions about using Savio:
 <ul>
