@@ -822,13 +822,11 @@ To launch a Jupyter session:
 
 # iPyParallel
 
-We need to import python if using command line
 
-```
-module load python/3.7
-```
 
-Next we can start iPython and set up a cluster
+You Canollow along in the Jupyter N
+
+First, we import iPyParallel and set up a cluster
 
 ```
 import os
@@ -836,15 +834,14 @@ import os
 # Import the package
 import ipyparallel as ipp
 
-# get number of cores (for one node)
+# Get number of cores (for one node)
 cpu_count = int(os.getenv('SLURM_CPUS_ON_NODE'))
 
-# create a remote cluster
+# Create a remote cluster (It only takes one line!)
 rc = ipp.Cluster(n=cpu_count).start_and_connect_sync()
-rc.wait_for_engines(n=cpu_count)
 ```
 
-First create a direct view, which lets you run tasks symmetrically across engines
+Then create a direct view, which lets you run tasks symmetrically across engines
 
 ```
 dview = rc[:]
@@ -867,7 +864,7 @@ with dview.sync_imports():
 The push command lets you send data to each engine
 
 ```
-# send data to each engine
+# Send data to each engine
 dview.push(dict(a=1.03234, b=3453))
 for i in range(cpu_count):
   rc[i].push({'id': rc.ids[i]})
@@ -876,7 +873,7 @@ for i in range(cpu_count):
 Some commands will return an asynchronous object
 
 ```
-# apply and then get
+# Apply and then get
 ar = dview.apply(lambda x: id+x, 27)
 print(ar)
 # Get the result
@@ -907,7 +904,7 @@ lview = rc.load_balanced_view()
 lview.block = True
 ```
 
-We will calculate pi by monte carlo, et's define a function that checks if two points are in the unit circle
+We will calculate pi by monte carlo, let's define a function that checks if two points are in the unit circle
 
 ```
 def uc_check(input):
