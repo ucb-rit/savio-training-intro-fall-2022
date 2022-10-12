@@ -949,8 +949,6 @@ We're also including some articles and documentation that may be helpful in gett
 - [Why Dask?](https://dask.pydata.org/en/latest/why.html)
 - [Standard Dask Demo](https://www.youtube.com/watch?v=ods97a5Pzw0)
 - [Why every Data Scientist should use Dask](http://dask.pydata.org/en/latest/api.html)
-- [Dask Cheatsheet](https://dask.pydata.org/en/latest/_downloads/daskcheatsheet.pdf)
-- [Detailed Dask overview video](https://www.youtube.com/watch?v=mjQ7tCQxYFQ)
 
 # How to get additional help
 
