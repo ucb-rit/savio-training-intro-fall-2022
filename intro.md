@@ -822,11 +822,10 @@ To launch a Jupyter session:
 
 # iPyParallel
 
-We need to import python and make sure iPyParallel is up to date.
+We need to import python if using command line
 
 ```
 module load python/3.7
-pip install --user ipyparallel --upgrade
 ```
 
 Next we can start iPython and set up a cluster
